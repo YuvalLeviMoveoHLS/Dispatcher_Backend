@@ -6,7 +6,7 @@ import { Article } from './article.interface';
 export class ArticlesService {
   constructor(@InjectModel('Article') private articleModel: Model<Article>) {}
 
-  async findPaginated(pageSize: number, page: number): Promise<Article[]> {
+  async findArticles(pageSize: number, page: number): Promise<Article[]> {
     // Convert to number and apply defaults if necessary
     pageSize = Number(pageSize) || 10;
     page = Number(page) || 1;

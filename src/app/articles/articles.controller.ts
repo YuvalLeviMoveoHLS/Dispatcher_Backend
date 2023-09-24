@@ -18,21 +18,7 @@ export class ArticlesController {
     @Query('page') page: number,
     @Res() res: Response,
   ) {
-    const articles = await this.articlesService.findPaginated(pageSize, page);
+    const articles = await this.articlesService.findArticles(pageSize, page);
     return res.status(200).send(articles);
   }
-
-  //   @Get()
-  //   async findAll() {
-  //     return this.articlesService.findAll();
-  //   }
-  //   @Get()
-  //   @ApiResponse({
-  //     isArray: true,
-  //     status: 200,
-  //     description: 'Health check',
-  //   })
-  //   async articles(@Res() res: Response) {
-  //     return res.sendStatus(200);
-  //   }
 }
