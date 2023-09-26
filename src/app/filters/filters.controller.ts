@@ -15,8 +15,8 @@ export class FiltersController {
     return this.filtersService.getLanguages();
   }
 
-  //   @Get('categories')
-  //   getCategories() {
-  //     return this.filtersService.getCategories();
-  //   }
+  @Get('categories')
+  getCategories() {
+    return this.filtersService.getCategories();
+  }
 }

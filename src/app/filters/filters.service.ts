@@ -2,14 +2,15 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { mapLanguageCodeToName } from '../helpers';
+import { Source } from './source.interface';
 
 @Injectable()
 export class FiltersService {
   constructor(
-    @InjectModel('Source') private readonly sourceModel: Model<any>,
+    @InjectModel('Source') private readonly sourceModel: Model<Source>,
   ) {}
 
-  async getSources(): Promise<any[]> {
+  async getSources(): Promise<Source[]> {
     return await this.sourceModel.find().exec();
   }
 
@@ -20,7 +21,7 @@ export class FiltersService {
       title: mapLanguageCodeToName(lang),
     }));
   }
-  //   async getCategories(): Promise<string[]> {
-  //     return await this.sourceModel.distinct('category').exec();
-  //   }
+  async getCategories(): Promise<string[]> {
+    return await this.sourceModel.distinct('category').exec();
+  }
 }
