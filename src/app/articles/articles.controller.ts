@@ -18,7 +18,7 @@ export class ArticlesController {
     @Query('page') page: number,
     @Res() res: Response,
   ) {
-    const articles = await this.articlesService.findArticles(pageSize, page);
-    return res.status(200).send(articles);
+    const result = await this.articlesService.findArticles(pageSize, page);
+    return res.status(200).send(result);
   }
 }
