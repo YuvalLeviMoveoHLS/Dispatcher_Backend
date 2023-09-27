@@ -5,14 +5,7 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-  app
-    .enableCors
-    //   {
-    //   origin: 'http://localhost:5173',
-    //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    //   credentials: true,
-    // }
-    ();
+  app.enableCors();
 
   const globalPrefix = 'api/v1';
   app.setGlobalPrefix(globalPrefix);

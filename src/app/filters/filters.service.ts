@@ -15,7 +15,9 @@ export class FiltersService {
   }
 
   async getLanguages(): Promise<{ value: string; title: string }[]> {
-    const languages = await this.sourceModel.distinct('language').exec();
+    const languages = await this.sourceModel
+      .distinct('language', { language: { $ne: 'ud' } })
+      .exec();
     return languages.map((lang) => ({
       value: lang,
       title: mapLanguageCodeToName(lang),

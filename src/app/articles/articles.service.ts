@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { Article } from './article.interface';
-import { ArticleFront, getArticleFrontProjection } from '../helpers';
+import { ArticleFront, articleFrontProjection } from '../helpers';
 @Injectable()
 export class ArticlesService {
   constructor(@InjectModel('Article') private articleModel: Model<Article>) {}
@@ -16,10 +16,9 @@ export class ArticlesService {
     page = Number(page) || 1;
 
     const skip = (page - 1) * pageSize;
-    const frontProjection = getArticleFrontProjection();
     const articlesRes = await this.articleModel
       .find()
-      .select(frontProjection)
+      .select(articleFrontProjection)
       .limit(pageSize)
       .skip(skip)
       .exec();

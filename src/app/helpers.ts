@@ -41,16 +41,14 @@ export interface ArticleFront {
   author?: string | null;
 }
 
-export function getArticleFrontProjection() {
-  return {
-    'source.id': 1,
-    'source.name': 1,
-    title: 1,
-    description: 1,
-    url: 1,
-    urlToImage: 1,
-    publishedAt: 1,
-    content: 1,
-    author: 1,
-  };
-}
+export const articleFrontProjection = {
+  'source.id': 1,
+  'source.name': 1,
+  title: 1,
+  description: 1,
+  url: 1,
+  urlToImage: 1,
+  publishedAt: 1,
+  content: 1,
+  author: 1,
+};
