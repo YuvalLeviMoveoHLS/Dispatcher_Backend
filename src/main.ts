@@ -5,6 +5,8 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+  app.enableCors();
+
   const globalPrefix = 'api/v1';
   app.setGlobalPrefix(globalPrefix);
   const port = 3000 || process.env.PORT;

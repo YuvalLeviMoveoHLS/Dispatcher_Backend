@@ -3,7 +3,8 @@ import { MongooseConnectionModule } from './mongoose.module';
 import { HealthModule } from './health/health.module';
 import { ConfigModule } from '@nestjs/config';
 import { ArticlesModule } from './articles/articles.module';
-export const AppModules = [HealthModule, ArticlesModule];
+import { FiltersModule } from './filters/filters.module';
+export const AppModules = [HealthModule, ArticlesModule, FiltersModule];
 @Module({
   imports: [
     ConfigModule.forRoot({
