@@ -61,7 +61,7 @@ const countryMap: { [key: string]: string } = {
   hu: 'Hungary',
   id: 'Indonesia',
   ie: 'Ireland',
-  il: 'Israel',
+  is: 'Israel',
   it: 'Italy',
   jp: 'Japan',
   lv: 'Latvia',
