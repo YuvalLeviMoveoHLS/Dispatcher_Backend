@@ -19,4 +19,8 @@ export class FiltersController {
   getCategories() {
     return this.filtersService.getCategories();
   }
+  @Get('countries')
+  getCountries() {
+    return this.filtersService.getCountries();
+  }
 }

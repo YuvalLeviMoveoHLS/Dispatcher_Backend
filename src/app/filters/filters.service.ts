@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { mapLanguageCodeToName } from '../helpers';
+import { mapCodeToCountry, mapLanguageCodeToName } from '../helpers';
 import { Source } from './source.interface';
 
 @Injectable()
@@ -25,5 +25,14 @@ export class FiltersService {
   }
   async getCategories(): Promise<string[]> {
     return await this.sourceModel.distinct('category').exec();
+  }
+  async getCountries(): Promise<{ value: string; title: string }[]> {
+    const countries = await this.sourceModel.distinct('country').exec();
+    return countries
+      .filter((country) => mapCodeToCountry(country) !== country)
+      .map((country) => ({
+        value: country,
+        title: mapCodeToCountry(country),
+      }));
   }
 }
