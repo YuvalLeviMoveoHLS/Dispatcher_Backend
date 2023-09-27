@@ -35,6 +35,7 @@ export class ArticlesController {
     @Query('country') country: string,
     @Query('sources') source: string,
     @Query('category') category: string,
+    @Query('q') q: string,
     @Res() res: Response,
   ) {
     if ((country || category) && source) {
@@ -48,6 +49,7 @@ export class ArticlesController {
       country,
       source,
       category,
+      q,
     );
     return res.status(200).send(result);
   }
@@ -61,6 +63,7 @@ export class ArticlesController {
     @Query('date') date: Date,
     @Query('sortBy') sortBy: string,
     @Query('language') language: string,
+    @Query('q') q: string,
     @Res() res: Response,
   ) {
     const result = await this.articlesService.findEverything(
@@ -72,6 +75,7 @@ export class ArticlesController {
       date,
       sortBy,
       language,
+      q,
     );
     return res.status(200).send(result);
   }

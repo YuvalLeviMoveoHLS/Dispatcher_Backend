@@ -38,6 +38,7 @@ export class ArticlesService {
     country: string,
     source: string,
     category: string,
+    q: string,
   ): Promise<{ articles: ArticleFront[]; totalResults: number }> {
     pageSize = Number(pageSize) || 10;
     page = Number(page) || 1;
@@ -50,6 +51,15 @@ export class ArticlesService {
     }
     if (category) query.category = category;
     const skip = (page - 1) * pageSize;
+    if (q) {
+      const regex = new RegExp(`\\b${q}\\b`, 'i'); // 'i' makes the search case-insensitive
+      query.$or = [
+        { title: regex },
+        { description: regex },
+        { content: regex },
+      ];
+    }
+
     console.log(query);
     const articlesRes = await this.articleModel
       .find(query)
@@ -75,6 +85,7 @@ export class ArticlesService {
     date: Date,
     sortBy: string,
     language: string,
+    q: string,
   ): Promise<{ articles: ArticleFront[]; totalResults: number }> {
     pageSize = Number(pageSize) || 10;
     page = Number(page) || 1;
@@ -90,9 +101,16 @@ export class ArticlesService {
         $lte: new String(to),
       };
     }
+    if (q) {
+      const regex = new RegExp(`\\b${q}\\b`, 'i'); // 'i' makes the search case-insensitive
+      query.$or = [
+        { title: regex },
+        { description: regex },
+        { content: regex },
+      ];
+    }
     if (language) query.language = language;
     if (sortBy) query.sortBy = sortBy;
-    // q????
     const skip = (page - 1) * pageSize;
     console.log(query);
     const articlesRes = await this.articleModel
