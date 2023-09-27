@@ -70,6 +70,8 @@ export class ArticlesService {
     pageSize: number,
     page: number,
     source: string,
+    from: Date,
+    to: Date,
     date: Date,
     sortBy: string,
     language: string,
@@ -82,7 +84,12 @@ export class ArticlesService {
     if (source) {
       query['source.id'] = source;
     }
-    //if (date) query.date = date;
+    if (from && to) {
+      query.publishedAt = {
+        $gte: new String(from),
+        $lte: new String(to),
+      };
+    }
     if (language) query.language = language;
     if (sortBy) query.sortBy = sortBy;
     // q????
