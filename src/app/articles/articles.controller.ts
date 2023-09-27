@@ -1,4 +1,3 @@
-
 import {
   BadRequestException,
   Controller,
@@ -34,7 +33,7 @@ export class ArticlesController {
     @Query('pageSize') pageSize: number,
     @Query('page') page: number,
     @Query('country') country: string,
-    @Query('source') source: string,
+    @Query('sources') source: string,
     @Query('category') category: string,
     @Res() res: Response,
   ) {
@@ -52,5 +51,24 @@ export class ArticlesController {
     );
     return res.status(200).send(result);
   }
+  @Get('everything')
+  async everything(
+    @Query('pageSize') pageSize: number,
+    @Query('page') page: number,
+    @Query('sources') source: string,
+    @Query('date') date: Date,
+    @Query('sortBy') sortBy: string,
+    @Query('language') language: string,
+    @Res() res: Response,
+  ) {
+    const result = await this.articlesService.findEverything(
+      pageSize,
+      page,
+      source,
+      date,
+      sortBy,
+      language,
+    );
+    return res.status(200).send(result);
+  }
 }
-
