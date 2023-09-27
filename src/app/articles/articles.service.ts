@@ -7,31 +7,6 @@ import { ArticleFront, articleFrontProjection } from '../helpers';
 export class ArticlesService {
   constructor(@InjectModel('Article') private articleModel: Model<Article>) {}
 
-  //   async findArticles(
-  //     pageSize: number,
-  //     page: number,
-  //     country,
-  //     source,
-  //     type: 'top-headlines' | 'everything',
-  //   ): Promise<{ articles: ArticleFront[]; totalResults: number }> {
-  //     // Convert to number and apply defaults if necessary
-  //     pageSize = Number(pageSize) || 10;
-  //     page = Number(page) || 1;
-  //     let query = {};
-  //     const skip = (page - 1) * pageSize;
-  //     const articlesRes = await this.articleModel
-  //       .find()
-  //       .select(articleFrontProjection)
-  //       .limit(pageSize)
-  //       .skip(skip)
-  //       .exec();
-  //     const totalResults = articlesRes.length;
-  //     return {
-  //       articles: articlesRes,
-  //       totalResults: totalResults,
-  //     };
-  //   }
-  // }
   async findTopHeadlines(
     pageSize: number,
     page: number,
@@ -110,13 +85,21 @@ export class ArticlesService {
       ];
     }
     if (language) query.language = language;
-    if (sortBy) query.sortBy = sortBy;
     const skip = (page - 1) * pageSize;
+
+    let sortOption: any = { publishedAt: -1 }; // default sort
+    if (sortBy === 'publishedAt') {
+      sortOption = { publishedAt: 1 };
+    } else if (sortBy === ('popularity' || 'relevancy')) {
+      query.isTopheadlines = true;
+      sortOption = { title: 1 };
+    }
     console.log(query);
+
     const articlesRes = await this.articleModel
       .find(query)
       .select(articleFrontProjection)
-      .sort({ publishedAt: -1 })
+      .sort(sortOption)
       .limit(pageSize)
       .skip(skip)
       .exec();
